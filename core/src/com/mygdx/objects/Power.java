@@ -28,7 +28,7 @@ public class Power {
         Random rand = new Random();
 
 		this.x = PongGame.getInstance().getWindowWidth() /2;
-		this.y = Random(PongGame.getInstance().getWindowHeight();
+		this.y = rand.nextInt(PongGame.getInstance().getWindowHeight());
 				
 		this.radius = Constants.BALL_RADIUS;
 		
