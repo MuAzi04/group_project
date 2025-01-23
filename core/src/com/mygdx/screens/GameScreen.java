@@ -19,10 +19,12 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.ContactType;
 import com.mygdx.helpers.FancyFontHelper;
 import com.mygdx.helpers.GameContactListener;
+import com.mygdx.helpers.PowerType;
 import com.mygdx.helpers.ScreenType;
 import com.mygdx.objects.Ball;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.PlayerAI;
+import com.mygdx.objects.Power;
 import com.mygdx.objects.Wall;
 import com.mygdx.pong.PongGame;
 
@@ -43,6 +45,7 @@ public class GameScreen extends ScreenAdapter{
 	private Player player;
 	private PlayerAI ai;
 	private Ball ball;
+	private Power power;
 	private Wall upper;
 	private Wall lower;
 	
@@ -67,6 +70,8 @@ public class GameScreen extends ScreenAdapter{
 		this.ai = new PlayerAI(PongGame.getInstance().getWindowWidth() - 16, PongGame.getInstance().getWindowHeight() / 2, aiBody, this);
 		
 		this.ball = new Ball(this);
+
+		this.power = new Power(this);
 		
 		this.upper = new Wall(PongGame.getInstance().getWindowHeight() - (Constants.UPPER_WALL_SIZE/2), Constants.UPPER_WALL_SIZE, this);
 		
@@ -89,6 +94,8 @@ public class GameScreen extends ScreenAdapter{
 		
 		this.ball.update();
 		
+		this.power.update();
+		
 		this.batch.setProjectionMatrix(this.camera.combined);
 		
 		// Reset button in case the ball gets stuck horizontally 
@@ -109,6 +116,26 @@ public class GameScreen extends ScreenAdapter{
 		if(this.ball.getX() - 3*this.ball.getRadius() > PongGame.getInstance().getWindowWidth()) {
 			this.player.updateScrore();
 			this.ball.reset();
+		}
+
+		// if the player presses the space button it uses the power 
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			switch (player.getPower().getType()) {
+				case SPEEDUP:
+					// TODO Implement Speedup
+					break;
+				case FREEZE:
+					// TODO Implement Freeze
+					break;
+				case LONGERPLAYER:
+					// TODO Implement Longerplayer
+					break;
+				case SMALLERBALL:
+					// TODO Implement Smallerball
+					break;
+				default:
+					break;
+			}
 		}
 		
 		// Checks if the game is over, and transitions to the end game screen
@@ -155,6 +182,12 @@ public class GameScreen extends ScreenAdapter{
 	
 	public Ball getBall() {
 		return this.ball;
+	}
+
+	// we need to get the player to obtain the power from it when checking collisions
+
+	public Player getPlayer(){
+		return this.player;
 	}
 
 	// Private auxiliary method to check winning conditions and create the end game message

@@ -17,12 +17,14 @@ public abstract class PlayerPaddle {
 	protected float x, y;
 	protected int velY, score;
 	protected Texture texture;
+	protected Power power;
 	
 	public PlayerPaddle(float x, float y, Body body) {
 		this.x = x;
 		this.y = y;
 		this.body = body;
 		this.score = 0;
+		this.power = null;
 	}
 	
 	public abstract void update();
@@ -36,6 +38,15 @@ public abstract class PlayerPaddle {
 
 	public int getScore() {
 		return this.score;
+	}
+
+	// Setter and getter for power
+	public void updatePower(Power newPower){
+		this.power = newPower;
+	}
+
+	public Power getPower(){
+		return this.power;
 	}
 	
 	// Computes the potential new velocity based on where the paddle wants to move and its maximal velocity

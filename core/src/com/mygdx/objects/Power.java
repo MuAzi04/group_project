@@ -14,6 +14,7 @@ import com.mygdx.helpers.ContactType;
 import com.mygdx.helpers.PowerType;
 import com.mygdx.pong.PongGame;
 import com.mygdx.screens.GameScreen;
+import java.util.Random;
 
 public class Power {
     private PowerType type;
@@ -24,8 +25,10 @@ public class Power {
 	protected Texture texture;
 	
 	public Power(GameScreen gameScreen) {
+        Random rand = new Random();
+
 		this.x = PongGame.getInstance().getWindowWidth() /2;
-		this.y = PongGame.getInstance().getWindowHeight() /2;
+		this.y = Random(PongGame.getInstance().getWindowHeight();
 				
 		this.radius = Constants.BALL_RADIUS;
 		

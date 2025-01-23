@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.objects.Ball;
+import com.mygdx.objects.Player;
+import com.mygdx.objects.Power;
 import com.mygdx.screens.GameScreen;
 
 /**
@@ -47,6 +49,14 @@ public class GameContactListener implements ContactListener {
          ball.applyImpulse(ballVelocity.setLength(.025f));
       }
 
+      // When the Power touches the Player it changes the current power
+      if (powerContact(a, b) && playerContact(a, b)) {
+         
+         Player player = this.gameScreen.getPlayer();
+         Power power = player.getPower();
+         player.updatePower(power);
+      }
+
    }
 
    @Override
@@ -75,5 +85,9 @@ public class GameContactListener implements ContactListener {
    // This method checks whether the AI paddle is involved
    private boolean aiContact(Fixture a, Fixture b) {
       return a.getUserData() == ContactType.AI || b.getUserData() == ContactType.AI;
+   }
+
+   private boolean powerContact(Fixture a, Fixture b) {
+      return a.getUserData() == ContactType.POWER || b.getUserData() == ContactType.POWER;
    }
 }
